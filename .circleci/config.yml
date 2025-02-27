@@ -8,35 +8,35 @@ parameters:
     type: boolean
     default: true
 
-jobs:
-  java-spring-build:
-    docker:
-      - image: cimg/openjdk:17.0
-    steps:
-      - checkout
-      - restore_cache:
-          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-      - restore_cache:
-          key: v1-gradle-cache-{{ checksum "build.gradle" }}
-      - run:
-          name: Build and Test
-          command: |
-            ./gradlew clean build test
-      - save_cache:
-          paths:
-            - ~/.gradle/wrapper
-          key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
-      - save_cache:
-          paths:
-            - ~/.gradle/caches
-          key: v1-gradle-cache-{{ checksum "build.gradle" }}
-      - jira/notify:
-          job_type: build
-      - store_artifacts:
-          path: build/reports/tests/test
-          destination: test-results
-      - store_test_results:
-          path: build/test-results
+# jobs:
+#   java-spring-build:
+#     docker:
+#       - image: cimg/openjdk:17.0
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+#       - restore_cache:
+#           key: v1-gradle-cache-{{ checksum "build.gradle" }}
+#       - run:
+#           name: Build and Test
+#           command: |
+#             ./gradlew clean build test
+#       - save_cache:
+#           paths:
+#             - ~/.gradle/wrapper
+#           key: v1-gradle-wrapper-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+#       - save_cache:
+#           paths:
+#             - ~/.gradle/caches
+#           key: v1-gradle-cache-{{ checksum "build.gradle" }}
+#       - jira/notify:
+#           job_type: build
+#       - store_artifacts:
+#           path: build/reports/tests/test
+#           destination: test-results
+#       - store_test_results:
+#           path: build/test-results
 
 workflows:
   sample_app_workflow:
