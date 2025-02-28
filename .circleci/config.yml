@@ -18,6 +18,7 @@ jobs:
       - checkout
       - run: echo "hello world!"
       - run: pwd
+      - run: ls
       - snyk/scan: 
           fail-on-issues: false
 
