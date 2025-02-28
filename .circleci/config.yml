@@ -17,6 +17,7 @@ jobs:
     steps:
       - checkout
       - run: echo "hello world!"
+      - run: pwd
       - snyk/scan: 
           fail-on-issues: false
 
