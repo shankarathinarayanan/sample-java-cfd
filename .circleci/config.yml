@@ -7,21 +7,17 @@ orbs:
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/maven
   maven: circleci/maven@1.3
   jira: circleci/jira@2.2.0
+  snyk: snyk/snyk@2.2.0
 
-parameters:
-  jira_create_ticket:
-    type: boolean
-    default: true
 
-executors:
-  openjdk11:
+jobs: 
+  build: 
     docker:
       - image: cimg/openjdk:11.0
-      - image: cimg/postgres:14.1
-        environment:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: cfd
+    steps:
+      - checkout
+      - run: echo "hello world!"
+          
 
 workflows:
   verify: # This is the name of the workflow, feel free to change it to better match your workflow.
@@ -39,7 +35,5 @@ workflows:
             - run:
                 name: Wait for db
                 command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - build:
-          post-steps:
-            - jira/notify
+      - build
 
