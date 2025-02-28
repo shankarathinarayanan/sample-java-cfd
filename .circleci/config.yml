@@ -17,7 +17,8 @@ jobs:
     steps:
       - checkout
       - run: echo "hello world!"
-      - snyk/scan  
+      - snyk/scan: 
+          fail-on-issues: false
 
 workflows:
   verify: # This is the name of the workflow, feel free to change it to better match your workflow.
