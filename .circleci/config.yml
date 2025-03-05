@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  jira: circleci/jira@2.2.0
+  
 jobs: 
   build: 
     docker:
@@ -7,6 +10,9 @@ jobs:
     steps:
       - checkout
       - run: echo "hello world!"
+      - jira/notify:
+          pipeline_id: << pipeline.id >>
+          pipeline_number: << pipeline.number >>
 
 
 workflows:
