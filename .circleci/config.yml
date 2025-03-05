@@ -16,7 +16,7 @@ jobs:
           pipeline_id: << pipeline.id >>
           pipeline_number: << pipeline.number >>
       - aws-cli/install
-
+      - aws-cli/setup
 
 workflows:
   verify: # This is the name of the workflow, feel free to change it to better match your workflow.
